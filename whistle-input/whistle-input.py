@@ -2,7 +2,7 @@ import pyaudio
 import numpy as np
 import pyglet
 from pyglet import clock, shapes
-from pynput.keyboard import Controller
+from pynput.keyboard import Key, Controller
 from AudioSetup import CHUNK_SIZE, FORMAT, CHANNELS, RATE, prompt_device
 
 WINDOW_WIDTH = 400
@@ -132,9 +132,10 @@ def draw_Rectangles():
     for rectangle in Rectangle.rectangles:
         rectangle.draw()
 
+
 # change active rectangle and trigger key input upwards
 def go_up():
-    keyboard.press('w')
+    keyboard.press(Key.up)
     active_id = None
     for x in range(0, len(Rectangle.rectangles)):
         currRectangle = Rectangle.rectangles[x]
@@ -148,7 +149,7 @@ def go_up():
 
 # change active rectangle and trigger key input downwards
 def go_down():
-    keyboard.press('s')
+    keyboard.press(Key.down)
     active_id = None
     for x in range(len(Rectangle.rectangles) - 1, -1, -1):
         currRectangle = Rectangle.rectangles[x]

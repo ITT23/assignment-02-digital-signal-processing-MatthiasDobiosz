@@ -5,6 +5,8 @@ FORMAT = pyaudio.paInt16  # Audio format
 CHANNELS = 1  # Mono audio
 RATE = 44100  # Audio sampling rate (Hz)
 
+# Basic pyaudio setup
+# Taken in large parts from the audio-sample.py File
 
 # start pyAudio device prompt and return the chosen device
 def prompt_device(p):

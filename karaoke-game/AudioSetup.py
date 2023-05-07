@@ -1,5 +1,8 @@
 import pyaudio
 
+# Basic pyaudio setup
+# Taken in large parts from the audio-sample.py File
+
 CHUNK_SIZE = 1024  # Number of audio frames per buffer
 FORMAT = pyaudio.paInt16  # Audio format
 CHANNELS = 1  # Mono audio
