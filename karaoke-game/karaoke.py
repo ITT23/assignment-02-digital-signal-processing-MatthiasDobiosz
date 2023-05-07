@@ -39,10 +39,6 @@ class Game:
         self.minFreq = 80
         self.maxFreq = 240
 
-        self.x = self.radius
-        self.y = WINDOW_HEIGHT / 2
-        self.shape = shapes.Circle(x=self.x, y=self.y, radius=self.radius,
-                                   color=(255, 55, 55))
         # Store last frequency
         self.frequency = None
         # MovementSpeed in Y-Axis
@@ -50,6 +46,12 @@ class Game:
         self.levelBuilder = LevelBuilder()
         self.score = 0
         self.gameOver = False
+
+        self.color = (55,255,55)
+        self.x = self.radius
+        self.y = self.levelBuilder.getLevelStartPoint()
+        self.shape = shapes.Circle(x=self.x, y=self.y, radius=self.radius, segments=20,
+                                   color=self.color)
 
     # Convert frequency to appropriate pixel value
     def convertToPixels(self, frequency):
@@ -85,8 +87,8 @@ class Game:
                             self.frequency = peak
 
         self.x += 1
-        self.shape = shapes.Circle(x=self.x, y=self.y, radius=self.radius,
-                                   color=(255, 55, 55))
+        self.shape = shapes.Circle(x=self.x, y=self.y, radius=self.radius, segments=20,
+                                   color=self.color)
 
         # reset level when circle out of window
         if self.x == WINDOW_WIDTH + self.radius:
@@ -113,13 +115,19 @@ class Game:
     def updateScore(self):
         if not self.gameOver:
             if self.x < len(self.levelBuilder.points):
-                if int(self.y) in self.levelBuilder.points[int(self.x)]:
+                ball_pos = int(self.y)
+                hitrange = self.levelBuilder.points[int(self.x)]
+                if ball_pos in hitrange:
                     self.score += 1
+                    self.color = (55,255,55)
+                else:
+                    self.color = (255,55,55)
 
     def resetLevel(self):
         if self.levelBuilder.currentLevel < 3:
             self.levelBuilder.level_up()
             self.x = 0
+            self.y = self.levelBuilder.getLevelStartPoint()
         else:
             self.endGame()
 
@@ -152,7 +160,7 @@ class Game:
                           anchor_x='center',
                           anchor_y='center').draw()
         pyglet.text.Label(
-            'final Score: ' + str(self.score),
+            'final Score: ' + str(self.score) + "/" + str(self.levelBuilder.levelCount * WINDOW_WIDTH),
             font_name='Times New Roman',
             font_size=18,
             x=WINDOW_WIDTH / 2,
@@ -166,7 +174,7 @@ class Game:
                           y=WINDOW_HEIGHT / 2 - 100,
                           anchor_x='center',
                           anchor_y='center').draw()
-        pyglet.text.Label('Press 3 to close the window',
+        pyglet.text.Label('Press 3 to end the game',
                           font_name='Times New Roman',
                           font_size=18,
                           x=WINDOW_WIDTH / 2,

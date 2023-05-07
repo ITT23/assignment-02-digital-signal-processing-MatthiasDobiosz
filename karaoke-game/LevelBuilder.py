@@ -13,11 +13,18 @@ class LevelBuilder:
         self.sampling_rate = 800
         self.shapes = []
         self.points = []
-        self.outlineColor = (55, 255, 55)
-        self.outlineWidth = 2
+        self.outlineColor = (64, 224, 208)
+        self.outlineWidth = 5
         self.areaColor = (255, 255, 255)
         self.batch = self.setup_wave()
         self.currentLevel = 1
+        self.levelCount = 3
+
+    # get center of first narrow to position the ball
+    def getLevelStartPoint(self):
+        firstpoint = self.points[0]
+        centerIdx = int((len(firstpoint) - 1)/2)
+        return firstpoint[centerIdx]
 
     # reset to level 1
     def reset(self):
@@ -34,6 +41,7 @@ class LevelBuilder:
             self.currentLevel = 3
             self.frequency = 3
             self.batch = self.setup_wave()
+
 
     # Method that generates the points for the sine waves
     def setup_wave(self):
