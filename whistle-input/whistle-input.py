@@ -1,5 +1,6 @@
 import pyaudio
 import numpy as np
+import sys
 import pyglet
 from pyglet import clock, shapes
 from pynput.keyboard import Key, Controller
@@ -189,6 +190,12 @@ def get_main_frequency(threshold):
 def on_draw():
     window.clear()
     draw_Rectangles()
+
+
+@window.event
+def on_key_press(symbol, modifiers):
+    if symbol == pyglet.window.key._3:
+        sys.exit()
 
 
 stackController = StackController()
