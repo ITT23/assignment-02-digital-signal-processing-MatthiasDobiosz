@@ -10,6 +10,9 @@ import os
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 800
 
+# Threshold value to avoid background noises / hissing
+SPECTRUM_THRESHOLD = 100000
+
 backgroundImagePath = os.path.normpath("Images/Pixel_Background.jpg")
 backgroundImage = pyglet.image.load(backgroundImagePath)
 
@@ -47,7 +50,7 @@ class Game:
         self.score = 0
         self.gameOver = False
 
-        self.color = (55,255,55)
+        self.color = (55, 255, 55)
         self.x = self.radius
         self.y = self.levelBuilder.getLevelStartPoint()
         self.shape = shapes.Circle(x=self.x, y=self.y, radius=self.radius, segments=20,
@@ -63,7 +66,7 @@ class Game:
 
     # Main Method to get the main frequency and translate it into movement
     def update(self, delta_time):
-        peak = get_main_frequency(100000)
+        peak = get_main_frequency(SPECTRUM_THRESHOLD)
         if peak is not None and peak > 1:
             if self.frequency is None:
                 self.frequency = peak
@@ -119,9 +122,9 @@ class Game:
                 hitrange = self.levelBuilder.points[int(self.x)]
                 if ball_pos in hitrange:
                     self.score += 1
-                    self.color = (55,255,55)
+                    self.color = (55, 255, 55)
                 else:
-                    self.color = (255,55,55)
+                    self.color = (255, 55, 55)
 
     def resetLevel(self):
         if self.levelBuilder.currentLevel < 3:

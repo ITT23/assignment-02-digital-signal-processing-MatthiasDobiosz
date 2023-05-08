@@ -9,6 +9,9 @@ from AudioSetup import CHUNK_SIZE, FORMAT, CHANNELS, RATE, prompt_device
 WINDOW_WIDTH = 400
 WINDOW_HEIGHT = 400
 
+# Threshold value to avoid background noises / hissing
+SPECTRUM_THRESHOLD = 100000
+
 # setup pyaudio and pyglet window
 p = pyaudio.PyAudio()
 window = pyglet.window.Window(WINDOW_WIDTH, WINDOW_HEIGHT)
@@ -38,7 +41,7 @@ class StackController:
         self.peaks = []
 
     def update(self, delta_time):
-        peak = get_main_frequency(100000)
+        peak = get_main_frequency(SPECTRUM_THRESHOLD)
         if peak is not None and peak > 1:
             self.peaks.append(peak)
         else:
