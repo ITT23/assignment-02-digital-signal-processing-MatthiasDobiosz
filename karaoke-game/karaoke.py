@@ -39,8 +39,8 @@ class Game:
         self.radius = 20
 
         # min and max frequency that maps to coordinate boundaries
-        self.minFreq = 80
-        self.maxFreq = 240
+        self.minFreq = 100
+        self.maxFreq = 400
 
         # Store last frequency
         self.frequency = None
