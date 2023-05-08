@@ -3,7 +3,7 @@
 ## Task 1
 
 The aim of the game is to control the ball and stay within the zone of the displayed sine waves. Higher tones result in the ball going up, lower frequency tones result in going down. 
-The current range is between 80hz and 240hz and can be adjusted.
+The current range is between 100hz and 400hz and can be adjusted.
 
 ## Task 2
 
